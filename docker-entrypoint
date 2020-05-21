@@ -1,0 +1,79 @@
+#!/bin/sh
+set -e
+if [ ! -f /warband/docker.txt ]; then
+    if [ "$MOD" = "bt" ] || [ "MOD" = "dm" ] || [ "MOD" = "tdm" ]; then
+        echo set_mission multiplayer_$MOD >> /warband/docker.txt
+        echo add_map multi_scene_2 >> /warband/docker.txt
+        echo add_map multi_scene_4 >> /warband/docker.txt
+        echo add_map multi_scene_7 >> /warband/docker.txt
+        echo add_map multi_scene_9 >> /warband/docker.txt
+        echo add_map multi_scene_11 >> /warband/docker.txt
+        echo add_map multi_scene_12 >> /warband/docker.txt
+        echo add_map random_multi_plain_medium >> /warband/docker.txt
+        echo add_map random_multi_plain_large >> /warband/docker.txt
+        echo add_map random_multi_steppe_medium >> /warband/docker.txt
+        echo add_map random_multi_steppe_large >> /warband/docker.txt
+        echo set_team_point_limit $TEAM_POINT_LIMIT >> /warband/docker.txt
+    fi
+    if [ "$MOD" = "cf" ] || [ "MOD" = "fd" ]; then
+        echo set_mission multiplayer_$MOD >> /warband/docker.txt
+        echo add_map multi_scene_2 >> /warband/docker.txt
+        echo add_map multi_scene_4 >> /warband/docker.txt
+        echo add_map multi_scene_7 >> /warband/docker.txt
+        echo add_map multi_scene_9 >> /warband/docker.txt
+        echo add_map multi_scene_11 >> /warband/docker.txt
+        echo add_map multi_scene_12 >> /warband/docker.txt
+        echo set_team_point_limit $TEAM_POINT_LIMIT >> /warband/docker.txt
+    fi
+    if [ "$MOD" = "hq" ]; then
+        echo set_mission multiplayer_$MOD >> /warband/docker.txt
+        echo add_map multi_scene_2 >> /warband/docker.txt
+        echo add_map multi_scene_4 >> /warband/docker.txt
+        echo add_map multi_scene_11 >> /warband/docker.txt
+        echo add_map multi_scene_12 >> /warband/docker.txt
+        echo set_team_point_limit $TEAM_POINT_LIMIT >> /warband/docker.txt
+    fi
+    if [ "$MOD" = "sg" ]; then
+        echo set_mission multiplayer_$MOD >> /warband/docker.txt
+        echo add_map multi_scene_3 >> /warband/docker.txt
+        echo add_map multi_scene_8 >> /warband/docker.txt
+        echo add_map multi_scene_10 >> /warband/docker.txt
+        echo set_team_point_limit $TEAM_POINT_LIMIT >> /warband/docker.txt
+    fi
+    if [ -z "$PASS" ]
+    then :
+    else echo set_pass $PASS >> /warband/docker.txt
+    fi
+    if [ -z "$PRIVATE_PASS" ]
+    then :
+    else echo set_pass_private $PRIVATE_PASS >> /warband/docker.txt
+    fi
+    if [ -z "$ADMIN_PASS" ]
+    then :
+    else echo set_pass_private $ADMIN_PASS >> /warband/docker.txt
+    fi
+    echo set_server_name $SERVER_NAME >> /warband/docker.txt
+    echo set_welcome_message "$WELCOME_MESSAGE" >> /warband/docker.txt
+    echo set_enable_valve_anti_cheat 1 >> /warband/docker.txt
+    echo set_max_players $MAX_PLAYER $MAX_PLAYER >> /warband/docker.txt
+    echo set_num_bots_voteable $BOTS_VOTABLE >> /warband/docker.txt
+    echo set_map $SET_MAP >> /warband/docker.txt
+    echo add_factions fac_kingdom_1 fac_kingdom_1 >> /warband/docker.txt
+    echo add_factions fac_kingdom_2 fac_kingdom_2 >> /warband/docker.txt
+    if [ "$KHERGIT" = "on" ]; then
+        echo add_factions fac_kingdom_3 fac_kingdom_3 >> /warband/docker.txt
+    fi
+    echo add_factions fac_kingdom_4 fac_kingdom_4 >> /warband/docker.txt
+    echo add_factions fac_kingdom_5 fac_kingdom_5 >> /warband/docker.txt
+    echo add_factions fac_kingdom_6 fac_kingdom_6 >> /warband/docker.txt
+    echo set_randomize_factions 1 >> /warband/docker.txt
+    echo set_upload_limit 100000000 >> /warband/docker.txt
+    echo set_friendly_fire $FRIENDLY_FIRE >> /warband/docker.txt
+    echo set_port $PORT >> /warband/docker.txt
+    echo set_steam_port $STEAM_PORT >> /warband/docker.txt
+    echo set_server_log_folder Logs >> /warband/docker.txt
+    echo set_server_ban_list_file Logs\ban_list.txt >> /warband/docker.txt
+    echo start >> /warband/docker.txt
+fi
+
+exec "$@"
